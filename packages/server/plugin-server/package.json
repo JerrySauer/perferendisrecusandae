@@ -1,0 +1,107 @@
+{
+  "name": "@modern-js/plugin-server",
+  "description": "The meta-framework suite designed from scratch for frontend-focused modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/modern-js-dev/modern.js/issues",
+  "repository": "modern-js-dev/modern.js",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "1.1.10",
+  "types": "./src/server.ts",
+  "jsnext:source": "./src/server.ts",
+  "main": "./dist/js/node/server.js",
+  "exports": {
+    ".": {
+      "node": {
+        "jsnext:source": "./src/server.ts",
+        "import": "./dist/js/modern/server.js",
+        "require": "./dist/js/node/server.js"
+      },
+      "default": "./dist/js/treeshaking/server.js"
+    },
+    "./cli": {
+      "jsnext:source": "./src/cli.ts",
+      "default": "./dist/js/node/cli.js"
+    },
+    "./server": {
+      "jsnext:source": "./src/server.ts",
+      "default": "./dist/js/node/server.js"
+    }
+  },
+  "scripts": {
+    "prepare": "pnpm build",
+    "prepublishOnly": "only-allow-pnpm && modern build --platform",
+    "dev": "modern dev",
+    "build": "wireit",
+    "new": "modern new",
+    "test": "wireit"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "cli": [
+        "./dist/types/cli.d.ts"
+      ],
+      "server": [
+        "./dist/types/server.d.ts"
+      ]
+    }
+  },
+  "dependencies": {
+    "@babel/runtime": "^7",
+    "@modern-js/babel-compiler": "workspace:^1.2.5",
+    "@modern-js/server-utils": "workspace:^1.2.6",
+    "@modern-js/utils": "workspace:^1.7.3"
+  },
+  "devDependencies": {
+    "@modern-js/server-core": "workspace:*",
+    "@modern-js/core": "workspace:*",
+    "@scripts/build": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "typescript": "^4",
+    "@types/jest": "^27",
+    "@types/node": "^14",
+    "jest": "^27",
+    "@scripts/jest-config": "workspace:*"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.less",
+    "*.sass",
+    "*.scss"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "types": "./dist/types/server.d.ts"
+  },
+  "wireit": {
+    "build": {
+      "command": "modern build",
+      "files": [
+        "src/**/*",
+        "tsconfig.json",
+        "package.json"
+      ],
+      "output": [
+        "dist/**/*"
+      ]
+    },
+    "test": {
+      "command": "jest --passWithNoTests",
+      "files": [
+        "src/**/*",
+        "tsconfig.json",
+        "package.json"
+      ],
+      "output": []
+    }
+  }
+}
